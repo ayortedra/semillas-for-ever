@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-
 //class parcelaTest : DescribeSpec({
 // hay una clase Parcela que tiene como atributos
 // ancho, largo, horasDelSol, listaPlantas
@@ -21,7 +20,7 @@ class SemillasTest : DescribeSpec ({
         val sojaAlta = Soja(1.0, 2009)
         val quinoa = Quinoa(0.2, 2010)
         val quinoata = Quinoa(0.9, 2006)
-
+        val sojaT = SojaTransgenica(1.6,2006)
 
 
 
@@ -46,20 +45,46 @@ class SemillasTest : DescribeSpec ({
 
         it("es fuerte") {
             menta.esFuerte().shouldBeFalse()
-            soja.esFuerte().shouldBeFalse()
+            sojaMedia.esFuerte().shouldBeFalse()
         }
 
         it("espacio") {
             menta.espacio().shouldBe(2.0)
             mentita.espacio().shouldBe(1.3)
-            soja.espacio().shouldBe(0.3)
+            sojaMedia.espacio().shouldBe(0.4)
 
 
         }
-        it("horas que toleran") {
+        it("horas que toleran"){
             soja.horasDeSolToleradas.shouldBe(6)
             sojaMedia.horasDeSolToleradas.shouldBe(8)
             sojaAlta.horasDeSolToleradas.shouldBe(12)
+            quinoa.horasDeSolToleradas.shouldBe(10)
+            quinoata.horasDeSolToleradas.shouldBe(7)
+        }
+
+        it("Cada planta define ciertas condiciones para saber si una parcela le resulta ideal"){
+            val parcela= Parcela(20, 1, 10)
+            val parcela1= Parcela(5, 1, 10)
+
+            parcela.plantarLa_(sojaAlta)
+            parcela.plantarLa_(sojaAlta)
+            parcela.plantarLa_(sojaAlta)
+            parcela.plantarLa_(sojaAlta)
+
+
+            parcela1.plantarLa_(sojaT)
+
+            menta.esIdealLa(parcela).shouldBeTrue()
+
+            quinoa.esIdealLa(parcela).shouldBeTrue()
+            quinoata.esIdealLa(parcela1).shouldBeFalse()
+
+            soja.esIdealLa(parcela).shouldBeFalse()
+
+            sojaT.esIdealLa(parcela1).shouldBeTrue()
+            sojaT.esIdealLa(parcela).shouldBeFalse()
+
         }
 
     }
