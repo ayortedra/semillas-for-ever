@@ -66,6 +66,6 @@ class Peperina(altura: Double, anioSemilla: Int): Menta(altura , anioSemilla) {
 }
 class SojaTransgenica(altura: Double, anioSemilla: Int): Soja(altura , anioSemilla) {
     override fun daSemillas()= false
-    override fun esIdealLa(parcela: Parcela)= parcela.cantidadDePlantasQueTolera()== 1
+    override fun esIdealLa(parcela: Parcela)= parcela.cantidadDePlantasQueTolera()== 1.00
 }
 

@@ -1,6 +1,6 @@
 package ar.edu.unahur.obj2.semillas
 
-open class Parcela(var ancho:Int, var largo:Int, var horasDeSolQueRecibe:Int) {
+open class Parcela(var ancho:Double, var largo:Double, var horasDeSolQueRecibe:Int) {
 
   var plantasEnParcela= mutableListOf<Planta>()
 
@@ -33,14 +33,21 @@ open class Parcela(var ancho:Int, var largo:Int, var horasDeSolQueRecibe:Int) {
   }
   open fun seAsociaA_(planta : Planta) = false
 
+  open fun porcentajeDeAsociacion(): Double =0.0
+
+
+
 
 }
-class ParcelaEcologica(ancho : Int, largo : Int, horasDeSolQueRecibe : Int) : Parcela(ancho, largo ,horasDeSolQueRecibe) {
-  override  fun seAsociaA_(planta : Planta) = !this.tieneComplicaciones() && planta.esIdealLa(this)
+class ParcelaEcologica(ancho : Double, largo : Double, horasDeSolQueRecibe : Int) : Parcela(ancho, largo ,horasDeSolQueRecibe) {
 
+  override fun seAsociaA_(planta : Planta) = !this.tieneComplicaciones() && planta.esIdealLa(this)
+
+  override fun porcentajeDeAsociacion():Double =
+    100.0*plantasEnParcela.count { this.seAsociaA_(it) } / plantasEnParcela.size
 }
 
-class ParcelaIndustrial(ancho : Int, largo : Int, horasDeSolQueRecibe : Int) : Parcela(ancho, largo, horasDeSolQueRecibe) {
+class ParcelaIndustrial(ancho : Double, largo : Double, horasDeSolQueRecibe : Int) : Parcela(ancho, largo, horasDeSolQueRecibe) {
 
   override fun seAsociaA_(planta:Planta) = (cantidadPlantas() <= 2) and (planta.esFuerte())
 

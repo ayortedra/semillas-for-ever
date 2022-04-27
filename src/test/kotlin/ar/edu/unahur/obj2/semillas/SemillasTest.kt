@@ -64,8 +64,8 @@ class SemillasTest : DescribeSpec ({
         }
 
         it("Cada planta define ciertas condiciones para saber si una parcela le resulta ideal"){
-            val parcela= Parcela(20, 1, 10)
-            val parcela1= Parcela(5, 1, 10)
+            val parcela= Parcela(20.00, 1.0, 10)
+            val parcela1= Parcela(5.0, 1.0, 10)
 
             parcela.plantarLa_(sojaAlta)
             parcela.plantarLa_(sojaAlta)

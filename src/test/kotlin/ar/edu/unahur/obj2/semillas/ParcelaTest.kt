@@ -3,6 +3,7 @@ package ar.edu.unahur.obj2.semillas
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.doubles.shouldBeBetween
 import io.kotest.matchers.shouldBe
 
 
@@ -11,8 +12,8 @@ class ParcelasTest : DescribeSpec({
     val soja = Soja(0.6, 2009)
     val sojaAlta = Soja(1.0, 2009)
 
-    val parcela= Parcela(20, 1, 10)
-    val parcela1= Parcela(20, 1, 10)
+    val parcela= Parcela(20.00, 1.0, 10)
+    val parcela1= Parcela(20.0, 1.0, 10)
 
     parcela.plantarLa_(sojaAlta)
     parcela.plantarLa_(sojaAlta)
@@ -48,8 +49,8 @@ class parcelasTipo: DescribeSpec({
     val soja = Soja(0.6, 2009)
     val sojaAlta = Soja(1.0, 2009)
 
-    val parcela = ParcelaEcologica(20, 1, 8)
-    val parcela1 = ParcelaEcologica(20, 1, 10)
+    val parcela = ParcelaEcologica(20.0, 1.0, 8)
+    val parcela1 = ParcelaEcologica(20.0, 1.0, 10)
 
     parcela.plantarLa_(soja)
     parcela.plantarLa_(soja)
@@ -65,8 +66,8 @@ class parcelasTipo: DescribeSpec({
 
     it("tipo de parcela industrial") {
 
-      val parcela2=ParcelaIndustrial(10,2,10)
-      val parcela3=ParcelaIndustrial(10,2,10)
+      val parcela2=ParcelaIndustrial(10.00,2.00,10)
+      val parcela3=ParcelaIndustrial(10.00,2.00,10)
 
       val menta = Menta(1.0, 2021)
 
@@ -93,6 +94,31 @@ class parcelasTipo: DescribeSpec({
       parcela3.cantidadPlantas().shouldBe(3)
 
 
+    }
+    it ("Porcentaje de asociacion a una parcelas de "){
+
+
+      val soja = Soja(0.6, 2009)
+      val sojaAlta = Soja(0.7, 2009)
+      val sojaMedia = Soja(0.8,2006)
+      val quinoaPrimavera = Quinoa(0.2, 2010)
+      val peperina = Peperina(1.0, 2021)
+
+      val parcela = ParcelaEcologica(20.00, 10.00, 8)
+      val parcela1 = ParcelaEcologica(20.00, 1.00, 10)
+
+      parcela.plantarLa_(soja)
+      parcela.plantarLa_(peperina)
+      parcela.plantarLa_(sojaMedia)
+      parcela.plantarLa_(quinoaPrimavera)
+      parcela.plantarLa_(sojaAlta)
+      parcela.plantarLa_(sojaAlta)
+
+      parcela1.plantarLa_(sojaAlta)
+      parcela.plantasEnParcela.count().shouldBe(6)
+      parcela.cantidadPlantas().shouldBe(5)
+      parcela.seAsociaA_(soja).shouldBeFalse()
+      parcela.seAsociaA_(peperina).shouldBeFalse()
     }
   }
 })
